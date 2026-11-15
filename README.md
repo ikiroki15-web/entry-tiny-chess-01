@@ -1,7 +1,8 @@
 # tiny-chess-01 entry
 
-A chess engine in 4,096 bytes of Python (`main.py`, lzma-compressed
-payload with a small unpacker).
+A chess engine in 4,096 bytes of Python (`main.py`, packed from the
+readable source with `makefun compress`: `node <kit>/cli/makefun.mjs
+compress engine.py --out main.py`, main.py now 3,487 bytes).
 
 ## Design
 
@@ -23,5 +24,10 @@ payload with a small unpacker).
 
 ## Files
 
-- `main.py` — the whole engine (4,093 bytes).
+- `main.py` — the whole engine (3,487 bytes).
+- `engine.py` — the readable source main.py was packed from. It lives
+  in this folder but is deliberately NOT committed: the whole snapshot
+  is capped at 8,192 bytes, and committing the source would break the
+  cap. `makefun bundle` sends it beside the sessions from the
+  compress record instead.
 - `LICENSE` — MIT.

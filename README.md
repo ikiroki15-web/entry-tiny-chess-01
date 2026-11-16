@@ -2,7 +2,7 @@
 
 A chess engine in 4,096 bytes of Python (`main.py`, packed from the
 readable source with `makefun compress`: `node <kit>/cli/makefun.mjs
-compress engine.py --out main.py`, main.py now 3,487 bytes).
+compress engine.py --out main.py`, main.py now 3,736 bytes).
 
 ## Design
 
@@ -18,13 +18,20 @@ compress engine.py --out main.py`, main.py now 3,487 bytes).
   check).
 - Evaluation: material plus formula piece-square tables, a
   middlegame/endgame king term and the bishop pair.
-- Repetition and fifty-move draws scored 0 inside the search.
+- Repetition and fifty-move draws scored 0 inside the search, with
+  the repetition table seeded from the game's moves (so a position
+  already seen in the game counts, including the root position).
+  The Zobrist hash covers castling rights and the en passant square,
+  so transpositions can no longer collide across them.
+- Quiescence returns 0 for stalemate (in the endgame, where the
+  search can reach it); a quiet position with legal moves still
+  returns its static evaluation.
 - Talks to the env only (`MAKEFUN_ENV_URL`): `POST /game`, `/move`.
   No model calls, no other network, no other files.
 
 ## Files
 
-- `main.py` — the whole engine (3,487 bytes).
+- `main.py` — the whole engine (3,736 bytes).
 - `engine.py` — the readable source main.py was packed from. It lives
   in this folder but is deliberately NOT committed: the whole snapshot
   is capped at 8,192 bytes, and committing the source would break the

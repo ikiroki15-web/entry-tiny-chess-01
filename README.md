@@ -2,7 +2,7 @@
 
 A chess engine in 4,096 bytes of Python (`main.py`, packed from the
 readable source with `makefun compress`: `node <kit>/cli/makefun.mjs
-compress engine.py --out main.py`, main.py now 3,736 bytes).
+compress engine.py --out main.py`, main.py now 3,927 bytes).
 
 ## Design
 
@@ -31,7 +31,7 @@ compress engine.py --out main.py`, main.py now 3,736 bytes).
 
 ## Files
 
-- `main.py` — the whole engine (3,736 bytes).
+- `main.py` — the whole engine (3,927 bytes).
 - `engine.py` — the readable source main.py was packed from. It lives
   in this folder but is deliberately NOT committed: the whole snapshot
   is capped at 8,192 bytes, and committing the source would break the
